@@ -21,6 +21,8 @@ module.exports = function loadFont(opt, cb) {
   //  if (err) return cb(err)
   fileLoader.load(file, function(data) {
 
+    THREE.Cache.files[file] = data;
+
     var result, binary
     if (isBinary(data)) {
       if (typeof data === 'string')

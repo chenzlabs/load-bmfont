@@ -34,6 +34,8 @@ module.exports = function(opt, cb) {
 //    if (!body)
 //      return cb(new Error('no body result'))
 
+    THREE.Cache.files[src] = body;
+
     var binary = false 
 
     //if the response type is an array buffer,
