@@ -62,7 +62,8 @@ module.exports = function(opt, cb) {
 
     var result
     try {
-      var type = res.headers['content-type']
+//      var type = res.headers['content-type']
+      var type = '';
       if (binary)
         result = readBinary(body)
       else if (/json/.test(type) || body.charAt(0) === '{')
@@ -77,7 +78,7 @@ module.exports = function(opt, cb) {
     }
     cb(null, result)
 //  })
-  }, null, function(err) { cb(err) })
+  }, undefined, function(err) { cb(err) })
 }
 
 function isArrayBuffer(arr) {

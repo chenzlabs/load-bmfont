@@ -6,7 +6,8 @@ var readBinary = require('parse-bmfont-binary')
 var mime = require('mime')
 var noop = function(){}
 var isBinary = require('./lib/is-binary')
-var fileLoader = require('three').FileLoader;
+var THREE = require('three')
+var fileLoader = THREE.FileLoader ? new THREE.FileLoader() : new THREE.XHRLoader()
 
 module.exports = function loadFont(opt, cb) {
   cb = typeof cb === 'function' ? cb : noop
@@ -45,5 +46,5 @@ module.exports = function loadFont(opt, cb) {
     }
     cb(null, result)
 //  })
-  }, null, function(err) { cb(err); });
+  }, undefined, function(err) { cb(err); });
 }
