@@ -5,7 +5,8 @@ var parseXML = require('parse-bmfont-xml')
 var readBinary = require('parse-bmfont-binary')
 var isBinaryFormat = require('./lib/is-binary')
 var xtend = require('xtend')
-var fileLoader = require('three').FileLoader
+var THREE = require('three')
+var fileLoader = THREE.FileLoader ? new THREE.FileLoader() : new THREE.XHRLoader()
 
 var xml2 = (function hasXML2() {
   return window.XMLHttpRequest && "withCredentials" in new XMLHttpRequest
