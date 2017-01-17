@@ -5,6 +5,7 @@ var parseXML = require('parse-bmfont-xml')
 var readBinary = require('parse-bmfont-binary')
 var isBinaryFormat = require('./lib/is-binary')
 var xtend = require('xtend')
+var fileLoader = require('three').FileLoader
 
 var xml2 = (function hasXML2() {
   return window.XMLHttpRequest && "withCredentials" in new XMLHttpRequest
@@ -22,13 +23,15 @@ module.exports = function(opt, cb) {
   if (expectBinary)
     opt = getBinaryOpts(opt)
 
-  xhr(opt, function(err, res, body) {
-    if (err)
-      return cb(err)
-    if (!/^2/.test(res.statusCode))
-      return cb(new Error('http status code: '+res.statusCode))
-    if (!body)
-      return cb(new Error('no body result'))
+  var src = opt.uri || opt.url
+  fileLoader.load(src, function(body) {
+//  xhr(opt, function(err, res, body) {
+//    if (err)
+//      return cb(err)
+//    if (!/^2/.test(res.statusCode))
+//      return cb(new Error('http status code: '+res.statusCode))
+//    if (!body)
+//      return cb(new Error('no body result'))
 
     var binary = false 
 
@@ -72,7 +75,8 @@ module.exports = function(opt, cb) {
       cb = noop
     }
     cb(null, result)
-  })
+//  })
+  }, null, function(err) { cb(err) })
 }
 
 function isArrayBuffer(arr) {
